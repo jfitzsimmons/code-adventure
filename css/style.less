@@ -1,0 +1,93 @@
+@light-orange:     #FFA446;
+@dark-orange:     #F18052;
+
+body,
+html {
+  margin: 0;
+  font-size: 1.3vw;
+}
+
+.ascii-container{
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.grid-container {
+  position: absolute;
+  top: 0;
+  display: grid;
+  height: 100%;
+  width:  100%;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows:    1fr 1fr;
+  grid-gap: 1px 1px;
+  grid-template-areas: "row1-col1 row1-col2 row1-col3" "row2-col1 row2-col2 row2-col3";
+}
+
+.grid-container.top-grid {
+  z-index: 2;
+}
+
+.grid-container.bottom-grid {
+  z-index: -2;
+}
+
+.top-grid .grid-cell {
+  border: 1px solid green;
+}
+
+.bottom-grid .grid-cell {
+  border: 1px solid magenta;
+}
+
+.row1-col1 { grid-area: row1-col1; }
+
+.row1-col2 { grid-area: row1-col2; }
+
+.row1-col3 { grid-area: row1-col3; }
+
+.row2-col1 { grid-area: row2-col1; }
+
+.row2-col2 { grid-area: row2-col2; }
+
+.row2-col3 { grid-area: row2-col3; }
+
+.computer-screen {
+  width:  98%;
+  height: 49%;
+  border: 0;
+  resize: none;
+}
+
+.wallpaper {
+  background: linear-gradient(127deg, #ffffff 50%, @light-orange , @dark-orange );
+  background-size: 200% 200%;
+  -webkit-animation: wallgradient 9s ease 1;
+  -moz-animation: wallgradient 9s ease 1;
+  animation: wallgradient 9s ease 1;
+  animation-fill-mode: forwards;
+  border-radius: 0 0 28% 0;
+}
+
+@-webkit-keyframes wallgradient {
+    0%{background-position:0% 7%}
+    100%{background-position:100% 94%}
+}
+@-moz-keyframes wallgradient {
+    0%{background-position:0% 7%}
+    100%{background-position:100% 94%}
+}
+@keyframes wallgradient {
+    0%{background-position:0% 7%}
+    100%{background-position:100% 94%}
+}
+.wallpaper-text {color: #AAA;}
+
+.window {
+  background: white;
+  margin: 10% 6% 0;
+  display: flex;
+  justify-content: center;
+  border-radius: 0 0 0 10%;
+}
