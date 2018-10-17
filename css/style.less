@@ -5,12 +5,19 @@ body,
 html {
   margin: 0;
   font-size: 1.3vw;
+  background: #fff;
 }
+
+pre {margin: 0;}
 
 .ascii-container{
   position: relative;
   display: flex;
   justify-content: center;
+}
+
+.stage {
+  z-index: 1;
 }
 
 .grid-container {
@@ -30,7 +37,11 @@ html {
 }
 
 .grid-container.bottom-grid {
-  z-index: -2;
+  z-index: 0;
+}
+
+.tall-grid {
+  height: 138%;
 }
 
 .top-grid .grid-cell {
@@ -60,14 +71,22 @@ html {
   resize: none;
 }
 
+.comp-screen {
+  background-color: #fff;
+}
+
+.left-top-round {
+  border-radius: 12px 0 0 0;
+}
+
 .wallpaper {
-  background: linear-gradient(127deg, #ffffff 50%, @light-orange , @dark-orange );
+  background: linear-gradient(100deg, #fff 50%, @light-orange , @dark-orange );
   background-size: 200% 200%;
   -webkit-animation: wallgradient 9s ease 1;
   -moz-animation: wallgradient 9s ease 1;
   animation: wallgradient 9s ease 1;
   animation-fill-mode: forwards;
-  border-radius: 0 0 28% 0;
+
 }
 
 @-webkit-keyframes wallgradient {

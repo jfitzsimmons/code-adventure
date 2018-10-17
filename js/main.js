@@ -37,8 +37,6 @@ function playTrack(url) {
   }
 }
 
-
-
 for (var i = 0, len = tracks.length; i < len; i++) {
   tracks[i].addEventListener('click', function(e) {
     playTrack(this.href);
@@ -69,7 +67,6 @@ function stopActiveSource(when) {
 }
 
 
-
 let stopTime = 0;
 let startTime = 0;
 const stings = [0,2,4,6,8,10]
@@ -91,8 +88,6 @@ stingAudio.addEventListener('timeupdate', function() {
 const rndmArrI = (a) => a[Math.floor(Math.random() * a.length)];
 
 
-
-
 /*
 GAMEPLAY
 */
@@ -100,8 +95,6 @@ let keycount = 0;
 $('#screen').bind('input propertychange', function() {
   keycount++;
   (keycount % 10 === 0 && playSting());
-
-
   let valueCheck = this.value;
   valueCheck = valueCheck.replace(/\s/g, '').toLowerCase();
   console.log('valueCheck: ' + valueCheck);
@@ -111,12 +104,12 @@ $('#screen').bind('input propertychange', function() {
     $(this).val('');
   }
   if(valueCheck === '<style>.wall{background:#fade00;}</style>'){
-    //$( ".bottom-grid .row1-col1" ).addClass( "wallpaper" );
     playSting();
     $(this).val('');
     typeWriter();
   }
 });
+
 var i = 0;
 var txt = "((IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII))\n((IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII))\n((IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII))\n(('.'.'.'.'.;:;:;:;:;:;.'.'.'.'.'.'))\n(('.'.'.'.'.;:;:;:;:;:;.'.'.'.'.'.'))\n))'.'.'.'.'.;:;:;:;:;:;.'.'.'.'.'.'((\n(('.'.'.'.'.;'   |    `:'.'.'.'.'.'))\n))'.'.'.'.';'    |     `:.'.'.'.'.'((\n(('.'.'.'.;'     |      `:'.'.'.'.'))\n))'.'.'.';'______|_______`:.'.'.'.'((\n((======@'       |        `@=======))\n))'.'.'.':       |         :'.'.'.'((\n))'.'.'.':       |         :'.'.'.'((\n))'.'.'.':     (@()@       :'.'.'.'((\n(('.'.'.'.    @()@()@      .'.'.'.'))\n))'.'.'.'.   ()@()@)()     .'.'.'.'((\n(('.'.'.'.    __\\|/__      .'.'.'.'))\n))'.'.'.'.   |-------|     .'.'.'.'((\n(('.'.'.'.    \\     /      .'.'.'.'))\n(('.'.'.'._____\\___/_______.'.'.'.'))\n))'.'.'.'==================='.'.'.'((\n))'.'.'.'==================='.'.'.'((\n(('.'.'.'                   '.'.'.'))\n   ~~~~                       ~~~~"; /* The text */
 var speed = 30; /* The speed/duration of the effect in milliseconds */
