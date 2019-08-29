@@ -4,9 +4,155 @@
 body,
 html {
   margin: 0;
-  font-size: 1.3vw;
   background: #fff;
 }
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+    position: relative;
+    z-index: 99999999;
+    padding: 0 4%;
+    border-bottom: 2px solid #000;
+    font-family: 'Tulpen One', monospace;
+    font-size: 25px;
+    letter-spacing: 1px;
+  }
+
+  a {
+    text-decoration: none;
+    color: #444649;
+    display: flex;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .home {
+
+  }
+
+  .home__icon {
+    width: 30px;
+    fill: #000;
+    height: 100%;
+  }
+
+  .nav {
+    display: flex;
+  }
+
+.nav__link.mid {
+  flex: 1;
+}
+
+  .nav__link.top:hover {
+    background: #000;
+
+  }
+.nav__link.top:hover a.top__anchor{
+  color: #fff;
+}
+
+.nav__link.btm a{
+  color: #000;
+}
+
+.nav__link.btm {
+  padding: 0 10px;
+}
+
+  .bars {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 4px;
+  }
+
+  .bar1, .bar2, .bar3 {
+      width: 30px;
+      height: 2px;
+      background-color: #000;
+      margin: 6px 0;
+      transition: 0.4s;
+  }
+
+  .change .bar1 {
+      -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+      transform:         rotate(-45deg) translate(-9px, 6px);
+  }
+
+  .change .bar2 {opacity: 0;}
+
+  .change .bar3 {
+      -webkit-transform: rotate(45deg) translate(-4px, -3px);
+      transform:         rotate(45deg) translate(-4px, -3px);
+  }
+
+  .sub-nav {
+    display: none;
+  }
+
+
+
+  nav ul li {
+
+  }
+
+  .top__anchor {
+    padding: 14px;
+  }
+
+  .nav__link.top {
+    display: block!important;
+  }
+
+  .expands:hover .sub-nav {
+    display: block;
+    position: absolute;
+    background: #fff;
+    border: 2px solid #000;
+    padding: 10px 0;
+  }
+
+.info-window {
+  display: none;
+  background: #fff;
+  font-family: 'Tulpen One', monospace;
+  font-size: 26px;
+  height: 75%;
+  border: 2px solid #000;
+  margin: 6px;
+  .content {margin: 6px;}
+}
+
+.title-bar {
+  text-align: center;
+  width: 100%;
+  background-image: url('img/win-title-bg.jpg');
+  background-repeat: repeat-x;
+  background-position: center;
+  border-bottom: 2px solid #000;
+  .text {
+    background: #fff;
+    padding: 0 6px;
+    margin-left: -22px;
+  }
+  .close {
+    float: left;
+    width: 16px;
+    fill: #000;
+    padding: 6px;
+    background-color: #fff;
+  }
+}
+
+
 
 pre {margin: 0;}
 
@@ -14,6 +160,7 @@ pre {margin: 0;}
   position: relative;
   display: flex;
   justify-content: center;
+  font-size: 1.3vw;
 }
 
 .stage {
@@ -110,3 +257,55 @@ pre {margin: 0;}
   justify-content: center;
   border-radius: 0 0 0 10%;
 }
+
+@media only screen and (min-width: 651px) {
+    a:hover {
+
+    }
+
+    .bars {
+      display: none;
+    }
+  }
+/*
+  @media only screen and (max-width: 650px) {
+
+  .nav {
+    display: block;
+  }
+
+  .bars {
+    display: block;
+  }
+
+  .nav__link.top {
+    display: none;
+  }
+
+  nav ul {
+      list-style: none;
+      background: #1c1c1c;
+      padding: 5px 0;
+      font-size: 0.8em;
+  }
+
+  nav ul li {
+      padding: 0;
+  }
+
+  nav li a {
+      display: block;
+      padding: 0 20px;
+      color: #fff;
+      font-weight: bold;
+      letter-spacing: 0.1em;
+      letter-spacing: 0.1em;
+      line-height: 2em;
+      height: 2em;
+  }
+
+  .sub-nav {
+    display: block;
+  }
+}
+*/

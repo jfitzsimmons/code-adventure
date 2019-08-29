@@ -121,3 +121,12 @@ function typeWriter() {
     setTimeout(typeWriter, speed);
   }
 }
+
+$( ".about-link" ).click(function() {
+  $('.info-window').hide();
+  $(".info-window."+ $(this).text()).show();
+});
+
+$( ".close" ).click(function() {
+  $('.info-window').hide();
+});
