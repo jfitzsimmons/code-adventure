@@ -98,7 +98,6 @@ function makeNewPosition(){
 }
 
 function animateDiv(){
-  console.log('test');
     var newq = makeNewPosition();
     var oldq = $('.bug').offset();
     var speed = calcSpeed([oldq.top, oldq.left], newq);
