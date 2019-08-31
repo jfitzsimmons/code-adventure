@@ -61,16 +61,24 @@
     <li class="nav__link top"><a class="top__anchor" href="#0">Contact</a></li>
   -->
   <li class="nav__link top expands right">
-    <a class="top__anchor" href="#0">Window</a>
-    <ul class="sub-nav">
-      <li class="nav__link btm"><a href="#0">&#10003; Standard</a></li>
+    <a class="top__anchor window-link" href="#0">Window</a>
+    <ul class="sub-nav views">
+      <li class="nav__link btm"><a class="view-link v01" data-view="v01" href="#0"><span class="check">&#10003;</span> Standard</a></li>
+      <span class="new-views">
+      <li class="nav__link btm"><a class="view-link v02" data-view="v02" href="#0"><span class="check">&#10064;</span> Mountain</a></li>
+      <li class="nav__link btm"><a class="view-link v03" data-view="v03" href="#0"><span class="check">&#10064;</span> Cabin</a></li>
+      <li class="nav__link btm"><a class="view-link v04" data-view="v04" href="#0"><span class="check">&#10064;</span> Woods</a></li>
+      <li class="nav__link btm"><a class="view-link v05" data-view="v05" href="#0"><span class="check">&#10064;</span> Ivy</a></li>
+      <li class="nav__link btm"><a class="view-link v06" data-view="v06" href="#0"><span class="check">&#10064;</span> Trees</a></li>
+      <li class="nav__link btm"><a class="view-link v07" data-view="v07" href="#0"><span class="check">&#10064;</span> //!Error: H@k</a></li>
+      </span>
     </ul>
   </li>
     <li class="nav__link top expands right">
       <a class="top__anchor" href="#0">Help</a>
       <ul class="sub-nav">
-        <li class="nav__link btm"><a class="about-link" href="#0">About</a></li>
-        <li class="nav__link btm"><a class="about-link" href="#0">Tip</a></li>
+        <li class="nav__link btm"><a class="game-link" href="#0">About</a></li>
+        <li class="nav__link btm"><a class="game-link" href="#0">Tip</a></li>
       </ul>
     </li>
 
@@ -110,7 +118,7 @@
  \____/ /  \ \____/ /  \ \____/ /  \ \____/ /  \ \____/ /  \ \____/ /  \ \____/ /  \ \____/ /  \ \____/ /  \ \____/ /  \ \
  / __ \ \__/ / __ \ \__/ / __ \ \__/ / __ \ \__/ / __ \ \__/ / __ \ \__/ / __ \ \__/ / __ \ \__/ / __ \ \__/ / __ \ \__/ /</span>
 <span class="wallpaper-text">/ /  \ \____/ /  \ \____/ /  \ \____/</span><span class="top-screen">________________________________________________</span><span class="wallpaper-text"> /  \ \____/ /  \ \____/ /  \ \____/</span>
-<span class="wallpaper-text">\ \__/ / __ \ \__/ / __ \ \__/ / __</span><span class="comp-screen left-top-round"> /                                                \</span><span class="wallpaper-text">\__/ / __ \ \__/ / __ \ \__/ / __ \</span>
+<span class="wallpaper-text">\ \__/ / __ \ \__/ / __ \ \__/ / __</span><span class="comp-screen left-top-round"> /                                                \ </span><span class="wallpaper-text">__/ / __ \ \__/ / __ \ \__/ / __ \</span>
 <span class="wallpaper-text"> \____/ /  \ \____/ /  \ \____/ /  </span><span class="comp-screen">|    _________________________________________     |</span><span class="wallpaper-text">___/ /  \ \____/ /  \ \____/ /  \ \</span>
 <span class="wallpaper-text"> / __ \ \__/ / __ \ \__/ / __ \ \__</span><span class="comp-screen">|   |                                         |    |</span><span class="wallpaper-text">__ \ \__/ / __ \ \__/ / __ \ \__/ /</span>
 <span class="wallpaper-text">/ /  \ \____/ /  \ \____/ /  \ \___</span><span class="comp-screen">|   |                                         |    |</span><span class="wallpaper-text">  \ \____/ /  \ \____/ /  \ \____/</span>
@@ -172,22 +180,84 @@
             Created by Joe
           </div>
         </div>
+        <div class="info-window memo">
+          <div class="title-bar">
+              <span class="close"><svg class="svg-icon" viewBox="0 0 20 20">
+							<path d="M11.469,10l7.08-7.08c0.406-0.406,0.406-1.064,0-1.469c-0.406-0.406-1.063-0.406-1.469,0L10,8.53l-7.081-7.08
+							c-0.406-0.406-1.064-0.406-1.469,0c-0.406,0.406-0.406,1.063,0,1.469L8.531,10L1.45,17.081c-0.406,0.406-0.406,1.064,0,1.469
+							c0.203,0.203,0.469,0.304,0.735,0.304c0.266,0,0.531-0.101,0.735-0.304L10,11.469l7.08,7.081c0.203,0.203,0.469,0.304,0.735,0.304
+							c0.267,0,0.532-0.101,0.735-0.304c0.406-0.406,0.406-1.064,0-1.469L11.469,10z"></path>
+						</svg></span><span class="text">Memo</span>
+          </div>
+          <div class="content">
+            Welcome to your first day of work.  We need you to create Hello World!
+          </div>
+        </div>
+        <div class="info-window alert">
+          <div class="title-bar">
+              <span class="close"><svg class="svg-icon" viewBox="0 0 20 20">
+							<path d="M11.469,10l7.08-7.08c0.406-0.406,0.406-1.064,0-1.469c-0.406-0.406-1.063-0.406-1.469,0L10,8.53l-7.081-7.08
+							c-0.406-0.406-1.064-0.406-1.469,0c-0.406,0.406-0.406,1.063,0,1.469L8.531,10L1.45,17.081c-0.406,0.406-0.406,1.064,0,1.469
+							c0.203,0.203,0.469,0.304,0.735,0.304c0.266,0,0.531-0.101,0.735-0.304L10,11.469l7.08,7.081c0.203,0.203,0.469,0.304,0.735,0.304
+							c0.267,0,0.532-0.101,0.735-0.304c0.406-0.406,0.406-1.064,0-1.469L11.469,10z"></path>
+						</svg></span><span class="text">Alert</span>
+          </div>
+          <div class="content">
+            <p>
+              A basic element of html is the div tag.  Try to wrap your Hello World app in an opening &lt;div&gt; tag and then a closing &lt;/div&gt; tag
+            </p>
+            <p>
+              If you complete this quickly, we'll upgrade your office.
+            </p>
+          </div>
+        </div>
+        <div class="info-window a">
+          <div class="title-bar">
+              <span class="close"><svg class="svg-icon" viewBox="0 0 20 20">
+              <path d="M11.469,10l7.08-7.08c0.406-0.406,0.406-1.064,0-1.469c-0.406-0.406-1.063-0.406-1.469,0L10,8.53l-7.081-7.08
+              c-0.406-0.406-1.064-0.406-1.469,0c-0.406,0.406-0.406,1.063,0,1.469L8.531,10L1.45,17.081c-0.406,0.406-0.406,1.064,0,1.469
+              c0.203,0.203,0.469,0.304,0.735,0.304c0.266,0,0.531-0.101,0.735-0.304L10,11.469l7.08,7.081c0.203,0.203,0.469,0.304,0.735,0.304
+              c0.267,0,0.532-0.101,0.735-0.304c0.406-0.406,0.406-1.064,0-1.469L11.469,10z"></path>
+            </svg></span><span class="text">F10wrz</span>
+          </div>
+          <div class="content">
+            <p>
+              Congrats!  They gave you a window.  Maybe you'd rather have some style. Try:
+            </p>
+            <p>
+              &lt;$ty13&gt;[dot]w@11{b@ckground:#f@d300[semi-colon]}&lt;/$ty13&gt;
+            </p>
+            <p>
+              Hint: $,1,3,@ = false | 0 = true | [...] = replace
+            </p>
+          </div>
+        </div>
       </div>
       <div class="grid-cell row1-col3">
         <pre id="windowsill" class="window"></pre>
       </div>
       <div class="grid-cell row2-col1">
+        <div>
+
+
+        <div class="letter">
+          <a class="game-link alert-link" href="#0">MEMO</a>
+        </div>
+      </div>
       </div>
       <div class="grid-cell row2-col2">
+        <div class="alerts">
+          *<a class="game-link alert-link" href="#0">ALERT</a>
+        </div>
         <form action="">
-          <textarea id="screen" name="message" class="computer-screen"></textarea>
+          <textarea id="screen" name="message" class="computer-screen" placeholder="Type here"></textarea>
         </form>
       </div>
       <div class="grid-cell row2-col3">
       </div>
     </div>
 
-    <div class="grid-container bottom-grid">
+    <div class="grid-container bottom-grid v01">
       <div class="grid-cell row1-col1 tall-grid" style="color:orange">
         sdfgsdfgdsfgsdfgsdfgdsfgsdfg sdfgsdfgsdfgdfgsdfgsdfg sdfgsfg sdfgsdf
         sdf gdsfg sdfgdsf gsfdgsdfg dsfgdsfg sdfggsdfg dsfg sdfg sdfg sdfg sdfg
@@ -197,17 +267,42 @@
       </div>
       <div class="grid-cell row1-col3 tall-grid">
       </div>
-      <div class="grid-cell row2-col1">
+      <div class="grid-cell row2-col1 short-grid">
+        <div class="inbox">
+
+            <pre>
+    .+-------+.
+  .' |_______| `.
+ /  /         \  \
+|\ /           \ /|
+| "-------------" |
+|_______I_N_______|
+            </pre>
+
+        </div>
       </div>
-      <div class="grid-cell row2-col2">
+      <div class="grid-cell row2-col2 short-grid">
       </div>
-      <div class="grid-cell row2-col3">
+      <div class="grid-cell row2-col3 short-grid">
+        <div class="clock">
+        <pre class="clock-top">
+         _______________________
+        /   _________________   \
+<div class="digits-outer"><div class="digits"><pre id="hour-1" class="digit"></pre>
+<pre id="hour-2" class="digit"></pre>
+<pre>
+
+<span class="colon">0</span>
+<span class="colon">0</span></pre><pre id="min-1" class="digit"></pre><pre id="min-2" class="digit"></pre></div></div>
+        |  |_________________|  |
+        |                       |
+        \_______________________/
+</pre>
+      </div>
+
       </div>
     </div>
-
   </div>
-
-
   <ul>
     <li><a class="track" id="tracks1" href="audio/coding2-1.mp3">stage 1</a></li>
     <li><a class="track" id="tracks2" href="audio/coding2-2.mp3">stage 2</a></li>

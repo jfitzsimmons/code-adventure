@@ -97,21 +97,38 @@ $('#screen').bind('input propertychange', function() {
   (keycount % 10 === 0 && playSting());
   let valueCheck = this.value;
   valueCheck = valueCheck.replace(/\s/g, '').toLowerCase();
-  console.log('valueCheck: ' + valueCheck);
   if(valueCheck === '<div></div>'){
     $( ".bottom-grid .row1-col1" ).addClass( "wallpaper" );
     playSting();
     $(this).val('');
   }
-  if(valueCheck === '<style>.wall{background:#fade00;}</style>'){
+  if(valueCheck === '<div>helloworld!</div>'){
+    $('.info-window').hide();
+    $('.alerts').hide();
     playSting();
     $(this).val('');
     typeWriter();
   }
+  if(valueCheck === 'helloworld!'){
+    $('.info-window').hide();
+    $('.letter').hide();
+    $( ".bottom-grid .row1-col1" ).addClass( "wallpaper" );
+    playSting();
+    $(this).val('');
+    $('.alerts').show();
+  }
+  if(valueCheck === '<style>.wall{background:#fade00;}</style>'){
+    $('.info-window').hide();
+    $('#windowsill').hide();
+    $('.window-link').addClass('alert-link');
+    $('.new-views').show();
+    playSting();
+    $(this).val('');
+  }
 });
 
 var i = 0;
-var txt = "((IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII))\n((IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII))\n((IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII))\n(('.'.'.'.'.;:;:;:;:;:;.'.'.'.'.'.'))\n(('.'.'.'.'.;:;:;:;:;:;.'.'.'.'.'.'))\n))'.'.'.'.'.;:;:;:;:;:;.'.'.'.'.'.'((\n(('.'.'.'.'.;'   |    `:'.'.'.'.'.'))\n))'.'.'.'.';'    |     `:.'.'.'.'.'((\n(('.'.'.'.;'     |      `:'.'.'.'.'))\n))'.'.'.';'______|_______`:.'.'.'.'((\n((======@'       |        `@=======))\n))'.'.'.':       |         :'.'.'.'((\n))'.'.'.':       |         :'.'.'.'((\n))'.'.'.':     (@()@       :'.'.'.'((\n(('.'.'.'.    @()@()@      .'.'.'.'))\n))'.'.'.'.   ()@()@)()     .'.'.'.'((\n(('.'.'.'.    __\\|/__      .'.'.'.'))\n))'.'.'.'.   |-------|     .'.'.'.'((\n(('.'.'.'.    \\     /      .'.'.'.'))\n(('.'.'.'._____\\___/_______.'.'.'.'))\n))'.'.'.'==================='.'.'.'((\n))'.'.'.'==================='.'.'.'((\n(('.'.'.'                   '.'.'.'))\n   ~~~~                       ~~~~"; /* The text */
+var txt = "((IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII))\n((IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII))\n((IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII))\n(('.'.'.'.'.;:;:;:;:;:;.'.'.'.'.'.'))\n(('.'.'.'.'.;:;:;:;:;:;.'.'.'.'.'.'))\n))'.'.'.'.'.;:;:;:;:;:;.'.'.'.'.'.'((\n(('.'.'.'.'.;'   |    `:'.'.'.'.'.'))\n))'.'.'.'.';'    |     `:.'.'.'.'.'((\n(('.'.'.'.;'     |      `:'.'.'.'.'))\n))'.'.'.';'______|_______`:.'.'.'.'((\n((======0'       |        `0=======))\n))'.'.'.':       |         :'.'.'.'((\n))'.'.'.':       |         :'.'.'.'((\n))'.'.'.':     (a()@       :'.'.'.'((\n(('.'.'.'.    @()@()@      .'.'.'.'))\n))'.'.'.'.   ()@()@)()     .'.'.'.'((\n(('.'.'.'.    __\\|/__      .'.'.'.'))\n))'.'.'.'.   |-------|     .'.'.'.'((\n(('.'.'.'.    \\     /      .'.'.'.'))\n(('.'.'.'._____\\___/_______.'.'.'.'))\n))'.'.'.'==================='.'.'.'((\n))'.'.'.'==================='.'.'.'((\n(('.'.'.'                   '.'.'.'))\n   ~~~~                       ~~~~"; /* The text */
 var speed = 30; /* The speed/duration of the effect in milliseconds */
 function typeWriter() {
 
@@ -119,14 +136,82 @@ function typeWriter() {
     document.getElementById("windowsill").innerHTML += txt.charAt(i);
     i++;
     setTimeout(typeWriter, speed);
+  } else {
+    $("#windowsill:contains('a')").html(function(_, html) {
+      return html.replace(/(a)/g, '<a class="game-link alert-link" href="#0">a</a>');
+    });
+    clickStart();
   }
 }
+function clickStart() {
+  $( ".game-link" ).click(function() {
+    $('.info-window').hide();
+    $(".info-window."+ $(this).text()).show();
+  });
+}
 
-$( ".about-link" ).click(function() {
-  $('.info-window').hide();
-  $(".info-window."+ $(this).text()).show();
+$('.view-link').click(function() {
+  $(".bottom-grid").removeClass (function (index, className) {
+    return (className.match (/\bv0\S+/g) || []).join(' ');
+  });
+  $(".bottom-grid").addClass($(this).attr("data-view"));
+  $(".check").html('&#10063;');
+  $(".check", this).html('&#10003;');
 });
 
 $( ".close" ).click(function() {
   $('.info-window').hide();
 });
+
+clickStart();
+getTime()
+
+function getTime() {
+  const currentdate = new Date();
+  let hours = currentdate.getHours();
+  let minutes = currentdate.getMinutes();
+  hours = ("0" + hours).slice(-2);
+  minutes = ("0" + minutes).slice(-2);
+
+  document.getElementById("hour-1").innerHTML = getDigit(hours.charAt(0));
+  document.getElementById("hour-2").innerHTML = getDigit(hours.charAt(1));
+  document.getElementById("min-1").innerHTML  = getDigit(minutes.charAt(0));
+  document.getElementById("min-2").innerHTML  = getDigit(minutes.charAt(1));
+}
+
+window.onload = function() { setInterval(getTime,60000)};
+
+function getDigit(d) {
+  switch (d) {
+  case '0':
+    return " _ \n| |\n|_|";
+    break;
+  case '1':
+    return "   \n  |\n  |";
+    break;
+  case '2':
+    return " _ \n _|\n|_ ";
+    break;
+  case '3':
+    return " _ \n _|\n _|";
+    break;
+  case '4':
+    return "   \n|_|\n  |";
+    break;
+  case '5':
+    return " _ \n|_ \n _|";
+    break;
+  case '6':
+    return " _ \n|_ \n|_|";
+    break;
+  case '7':
+    return " _ \n  |\n  |";
+    break;
+  case '8':
+    return " _ \n|_|\n|_|";
+    break;
+  case '9':
+    return " _ \n|_|\n  |";
+    break;
+  }
+}

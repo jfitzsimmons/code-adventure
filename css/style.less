@@ -1,5 +1,6 @@
-@light-orange:     #FFA446;
-@dark-orange:     #F18052;
+@light-orange: #FFA446;
+@dark-orange:  #F18052;
+@red:          #CC0000;
 
 body,
 html {
@@ -26,7 +27,6 @@ nav {
   a {
     text-decoration: none;
     color: #444649;
-    display: flex;
   }
 
   a:hover {
@@ -40,7 +40,8 @@ nav {
   .home__icon {
     width: 30px;
     fill: #000;
-    height: 100%;
+    display: block;
+    padding: 12px;
   }
 
   .nav {
@@ -106,6 +107,7 @@ nav {
 
   .top__anchor {
     padding: 14px;
+    display: block;
   }
 
   .nav__link.top {
@@ -118,6 +120,10 @@ nav {
     background: #fff;
     border: 2px solid #000;
     padding: 10px 0;
+  }
+
+  .new-views {
+    display: none;
   }
 
 .info-window {
@@ -149,6 +155,7 @@ nav {
     fill: #000;
     padding: 6px;
     background-color: #fff;
+    cursor: pointer;
   }
 }
 
@@ -174,7 +181,7 @@ pre {margin: 0;}
   height: 100%;
   width:  100%;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows:    1fr 1fr;
+  grid-template-rows:    50% 50%;
   grid-gap: 1px 1px;
   grid-template-areas: "row1-col1 row1-col2 row1-col3" "row2-col1 row2-col2 row2-col3";
 }
@@ -187,8 +194,37 @@ pre {margin: 0;}
   z-index: 0;
 }
 
+.bottom-grid {
+  background-position: center center;
+  background-size: cover;
+}
+
+.bottom-grid.v02 {
+  background-image: url('http://localhost:8000/css/img/test5.jpg');
+}
+.bottom-grid.v03 {
+  background-image: url('http://localhost:8000/css/img/test4.jpg');
+}
+.bottom-grid.v04 {
+  background-image: url('http://localhost:8000/css/img/test3.jpg');
+}
+.bottom-grid.v05 {
+  background-image: url('http://localhost:8000/css/img/test2.jpg');
+}
+.bottom-grid.v06 {
+  background-image: url('http://localhost:8000/css/img/test1.jpg');
+}
+
 .tall-grid {
   height: 138%;
+}
+
+.short-grid {
+  background: #fff;
+  height: 62%;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
 .top-grid .grid-cell {
@@ -201,21 +237,77 @@ pre {margin: 0;}
 
 .row1-col1 { grid-area: row1-col1; }
 
-.row1-col2 { grid-area: row1-col2; }
+.row1-col2 {
+  grid-area: row1-col2;
+  height: inherit;
+}
 
 .row1-col3 { grid-area: row1-col3; }
 
 .row2-col1 { grid-area: row2-col1; }
 
-.row2-col2 { grid-area: row2-col2; }
+.row2-col2 {
+  grid-area: row2-col2;
+  height: inherit;
+}
 
 .row2-col3 { grid-area: row2-col3; }
 
+.inbox, .letter {
+  padding: 6% 44% 0% 10%;
+}
+.letter {
+  box-sizing: border-box;
+  position: absolute;
+  top: 69%;
+  left: -1%;
+}
+
+.alerts {
+  padding: 1% 4% 0%;
+  text-align: right;
+  display: none;
+}
+
+.alert-link {
+  animation: blinker 1s linear infinite;
+  color: @red;
+}
+
+@keyframes blinker {
+  50% { opacity: 0; }
+}
+
 .computer-screen {
   width:  98%;
-  height: 49%;
+  height: 46%;
   border: 0;
   resize: none;
+}
+
+.digits-outer {
+  margin: 0px 19% -5%;
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  width: 57%;
+
+}
+
+.digits {
+  display: inline-flex;
+  margin-left: 13%;
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  width: 74%;
+  justify-content: center;
+}
+
+.digit {
+  display: flex;
+}
+
+.colon {
+ animation: blinker 1s linear infinite;
 }
 
 .comp-screen {
@@ -223,7 +315,7 @@ pre {margin: 0;}
 }
 
 .left-top-round {
-  border-radius: 12px 0 0 0;
+  border-radius: 12px 12px 0 0;
 }
 
 .wallpaper {
@@ -248,13 +340,12 @@ pre {margin: 0;}
     0%{background-position:0% 7%}
     100%{background-position:100% 94%}
 }
-.wallpaper-text {color: #AAA;}
+
+.wallpaper-text {color: rgba(0, 0, 0, 0.4);}
 
 .window {
   background: white;
   margin: 10% 6% 0;
-  display: flex;
-  justify-content: center;
   border-radius: 0 0 0 10%;
 }
 
