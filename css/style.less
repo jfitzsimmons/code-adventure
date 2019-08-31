@@ -126,16 +126,50 @@ nav {
     display: none;
   }
 
+.bug {
+  font-size: .3em;
+  position: relative;
+  transition: transform 2.5s ease-in-out 3s;
+  display: inline-flex;
+  will-change: transform, top, left;
+  top:  0%;
+  left: 0%;
+}
+
+.task {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  padding: 4px;
+  color: @red;
+  cursor: pointer;
+}
+
 .info-window {
   display: none;
   background: #fff;
   font-family: 'Tulpen One', monospace;
-  font-size: 26px;
+  font-size: 2.9em;
   height: 75%;
   border: 2px solid #000;
   margin: 6px;
-  .content {margin: 6px;}
+  .content {
+    margin: 2%;
+    p {
+      line-height: 0.9;
+      margin: 8% 2%;
+    }
+    .mono {
+      font-family: "Roboto Mono", monospace;
+      font-size: .5em;
+      line-height: 1.1;
+    }
+    .break {
+      word-break: break-all;
+    }
+  }
 }
+
+
 
 .title-bar {
   text-align: center;
@@ -151,11 +185,12 @@ nav {
   }
   .close {
     float: left;
-    width: 16px;
     fill: #000;
-    padding: 6px;
+    padding: 3%;
     background-color: #fff;
     cursor: pointer;
+    height: .5em;
+    width: 7%;
   }
 }
 
@@ -195,7 +230,7 @@ pre {margin: 0;}
 }
 
 .bottom-grid {
-  background-position: center center;
+  background-position: center right;
   background-size: cover;
 }
 
@@ -213,6 +248,9 @@ pre {margin: 0;}
 }
 .bottom-grid.v06 {
   background-image: url('http://localhost:8000/css/img/test1.jpg');
+}
+.bottom-grid.v07 {
+  background-image: url('http://localhost:8000/css/img/test6.jpg');
 }
 
 .tall-grid {
@@ -283,6 +321,7 @@ pre {margin: 0;}
   height: 46%;
   border: 0;
   resize: none;
+  outline: none;
 }
 
 .digits-outer {

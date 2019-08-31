@@ -87,6 +87,37 @@ stingAudio.addEventListener('timeupdate', function() {
 
 const rndmArrI = (a) => a[Math.floor(Math.random() * a.length)];
 
+function makeNewPosition(){
+    var h = $('.bug').parent().height() - 50;
+    var w = $('.bug').parent().width() - 50;
+
+    var nh = Math.floor(Math.random() * h);
+    var nw = Math.floor(Math.random() * w);
+
+    return [nh,nw];
+}
+
+function animateDiv(){
+  console.log('test');
+    var newq = makeNewPosition();
+    var oldq = $('.bug').offset();
+    var speed = calcSpeed([oldq.top, oldq.left], newq);
+
+    $('.bug').delay(speed).animate({ top: newq[0], left: newq[1] }, speed, function(){
+      var a = Math.random() * (180 - -180)+180;
+      $('.bug').css('transform', 'rotate(' + a + 'deg) scale(1.25)');
+      animateDiv();
+    });
+};
+
+function calcSpeed(prev, next) {
+    var x = Math.abs(prev[1] - next[1]);
+    var y = Math.abs(prev[0] - next[0]);
+    var greatest = x > y ? x : y;
+    var speedModifier = 0.05;
+    var speed = Math.ceil(greatest/speedModifier);
+    return speed;
+}
 
 /*
 GAMEPLAY
@@ -112,7 +143,7 @@ $('#screen').bind('input propertychange', function() {
   if(valueCheck === 'helloworld!'){
     $('.info-window').hide();
     $('.letter').hide();
-    $( ".bottom-grid .row1-col1" ).addClass( "wallpaper" );
+    animateDiv();
     playSting();
     $(this).val('');
     $('.alerts').show();
@@ -125,10 +156,26 @@ $('#screen').bind('input propertychange', function() {
     playSting();
     $(this).val('');
   }
+  if(valueCheck === '<li><ahref="index.html">home</a></li>'){
+    $('.info-window').hide();
+    $('.window-link').removeClass('alert-link');
+    $('.view-link.v07').parent().hide();
+    $('.bug').addClass('task');
+    playSting();
+    $(this).val('');
+    clickStart();
+  }
+//environment: without value
+  if(valueCheck.indexOf( "bugname:" ) != -1 && valueCheck.indexOf( "severity:" ) != -1 && valueCheck.indexOf( "reportedby:" ) != -1 && valueCheck.indexOf( "environment:" ) != -1){
+    $('.info-window').hide();
+    $('.bug').hide();
+    playSting();
+    $(this).val('');
+  }
 });
 
 var i = 0;
-var txt = "((IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII))\n((IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII))\n((IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII))\n(('.'.'.'.'.;:;:;:;:;:;.'.'.'.'.'.'))\n(('.'.'.'.'.;:;:;:;:;:;.'.'.'.'.'.'))\n))'.'.'.'.'.;:;:;:;:;:;.'.'.'.'.'.'((\n(('.'.'.'.'.;'   |    `:'.'.'.'.'.'))\n))'.'.'.'.';'    |     `:.'.'.'.'.'((\n(('.'.'.'.;'     |      `:'.'.'.'.'))\n))'.'.'.';'______|_______`:.'.'.'.'((\n((======0'       |        `0=======))\n))'.'.'.':       |         :'.'.'.'((\n))'.'.'.':       |         :'.'.'.'((\n))'.'.'.':     (a()@       :'.'.'.'((\n(('.'.'.'.    @()@()@      .'.'.'.'))\n))'.'.'.'.   ()@()@)()     .'.'.'.'((\n(('.'.'.'.    __\\|/__      .'.'.'.'))\n))'.'.'.'.   |-------|     .'.'.'.'((\n(('.'.'.'.    \\     /      .'.'.'.'))\n(('.'.'.'._____\\___/_______.'.'.'.'))\n))'.'.'.'==================='.'.'.'((\n))'.'.'.'==================='.'.'.'((\n(('.'.'.'                   '.'.'.'))\n   ~~~~                       ~~~~"; /* The text */
+var txt = "((IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII))\n((IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII))\n(('.'.'.'.'.;:;:;:;:;:;.'.'.'.'.'.'))\n))'.'.'.'.'.;:;:;:;:;:;.'.'.'.'.'.'((\n(('.'.'.'.'.;'   |    `:'.'.'.'.'.'))\n))'.'.'.'.';'    |     `:.'.'.'.'.'((\n(('.'.'.'.;'     |      `:'.'.'.'.'))\n))'.'.'.';'______|_______`:.'.'.'.'((\n((======0'       |        `0=======))\n))'.'.'.':       |         :'.'.'.'((\n))'.'.'.':     (a()@       :'.'.'.'((\n(('.'.'.'.    @()@()@      .'.'.'.'))\n))'.'.'.'.   ()@()@)()     .'.'.'.'((\n(('.'.'.'.    __\\|/__      .'.'.'.'))\n))'.'.'.'.   |-------|     .'.'.'.'((\n(('.'.'.'.    \\     /      .'.'.'.'))\n(('.'.'.'._____\\___/_______.'.'.'.'))\n))'.'.'.'==================='.'.'.'((\n))'.'.'.'==================='.'.'.'((\n(('.'.'.'                   '.'.'.'))\n   ~~~~                       ~~~~"; /* The text */
 var speed = 30; /* The speed/duration of the effect in milliseconds */
 function typeWriter() {
 
@@ -147,6 +194,10 @@ function clickStart() {
   $( ".game-link" ).click(function() {
     $('.info-window').hide();
     $(".info-window."+ $(this).text()).show();
+  });
+  $( ".task" ).click(function() {
+    $('.info-window').hide();
+    $(".bugreport").show();
   });
 }
 
