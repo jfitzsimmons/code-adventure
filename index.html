@@ -4,7 +4,7 @@
   <script type="text/javascript">
     WebFontConfig = {
       google: {
-        families: ['Tulpen+One', 'Roboto+Mono']
+        families: ['Tulpen+One', 'Roboto+Mono', 'Press+Start+2P', 'Ropa+Sans']
       }
     };
     (function() {
@@ -35,8 +35,17 @@
 </head>
 
 <body>
-<audio id="stingAudio" src="audio/stingsprite.mp3"></audio>
-<!--<button id="start">START</button>-->
+<audio id="stingAudio" src="audio/stingsprite.mp3" preload="auto|metadata|none"></audio>
+
+<div class="mask">
+  <div class="dialog">
+    <h1>Game Start</h1>
+<button id="start">START</button>
+<p>
+  by Joe
+</p>
+  </div>
+</div>
 <nav>
   <ul class="nav">
     <li class="nav__link home"><a class="home__icon" href="#0"><svg class="svg-icon" viewBox="0 0 20 20">
@@ -249,14 +258,29 @@
           </div>
           <div class="content">
             Enter a bug report like this:
-            </br>
-            Bug Name: Application crash
-            </br>
-            Severity: (High/Medium/Low)
-            </br>
-            Reported By: Your Name
-            </br>
-            Environment: Windows / Mac
+            <p class="mono">
+              Bug Name: Application crash
+              <br />
+              Severity: (High/Medium/Low)
+              <br />
+              Reported By: Your Name
+              <br />
+              Environment: Windows / Mac
+            </p>
+            Type "--commit" when done.
+          </div>
+        </div>
+        <div class="info-window o">
+          <div class="title-bar">
+              <span class="close"><svg class="svg-icon" viewBox="0 0 20 20">
+              <path d="M11.469,10l7.08-7.08c0.406-0.406,0.406-1.064,0-1.469c-0.406-0.406-1.063-0.406-1.469,0L10,8.53l-7.081-7.08
+              c-0.406-0.406-1.064-0.406-1.469,0c-0.406,0.406-0.406,1.063,0,1.469L8.531,10L1.45,17.081c-0.406,0.406-0.406,1.064,0,1.469
+              c0.203,0.203,0.469,0.304,0.735,0.304c0.266,0,0.531-0.101,0.735-0.304L10,11.469l7.08,7.081c0.203,0.203,0.469,0.304,0.735,0.304
+              c0.267,0,0.532-0.101,0.735-0.304c0.406-0.406,0.406-1.064,0-1.469L11.469,10z"></path>
+            </svg></span><span class="text">Konami</span>
+          </div>
+          <div class="content">
+            Good programmers write good CODE. Great programmers steal.  The best CHEAT.
           </div>
         </div>
       </div>
@@ -267,13 +291,13 @@
         <div>
 
 
-        <div class="letter">
+        <div class="letter toggle">
           <a class="game-link alert-link" href="#0">MEMO</a>
         </div>
       </div>
       </div>
       <div class="grid-cell row2-col2">
-        <div class="alerts">
+        <div class="alerts toggle">
           *<a class="game-link alert-link" href="#0">ALERT</a>
         </div>
         <form action="">
@@ -281,6 +305,21 @@
         </form>
       </div>
       <div class="grid-cell row2-col3">
+        <div class="clock">
+        <pre class="clock-top">
+         _______________________
+        /   _________________   \
+<div class="digits-outer"><div class="digits"><pre id="hour-1" class="digit"></pre>
+<pre id="hour-2" class="digit"></pre>
+<pre>
+
+<span class="colon">o</span>
+<span class="colon">o</span></pre><pre id="min-1" class="digit"></pre><pre id="min-2" class="digit"></pre></div></div>
+        |  |_________________|  |
+        |                       |
+        \_______________________/
+</pre>
+      </div>
       </div>
     </div>
 
@@ -308,25 +347,12 @@
       <div class="grid-cell row2-col2 short-grid">
       </div>
       <div class="grid-cell row2-col3 short-grid">
-        <div class="clock">
-        <pre class="clock-top">
-         _______________________
-        /   _________________   \
-<div class="digits-outer"><div class="digits"><pre id="hour-1" class="digit"></pre>
-<pre id="hour-2" class="digit"></pre>
-<pre>
-
-<span class="colon">0</span>
-<span class="colon">0</span></pre><pre id="min-1" class="digit"></pre><pre id="min-2" class="digit"></pre></div></div>
-        |  |_________________|  |
-        |                       |
-        \_______________________/
-</pre>
-      </div>
-
       </div>
     </div>
   </div>
+  <footer>
+    <span class="lives">&#9829;&#9829;&#9829;&#9829;&#9829;</span><span class="mid"></span><span class="role">Developer: </span><span id="score" class="score">0000</span>
+  </footer>
   <ul>
     <li><a class="track" id="tracks1" href="audio/coding2-1.mp3">stage 1</a></li>
     <li><a class="track" id="tracks2" href="audio/coding2-2.mp3">stage 2</a></li>
