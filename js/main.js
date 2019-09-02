@@ -2,14 +2,16 @@
 MUSIC
 */
 const $ = jQuery;
-let active_source = null;
-let buffers = {};
+let activeSource = null;
+const buffers = {};
 let context;
 let offset = 0;
 const tempo = 5.33375;
 const tracks = document.getElementsByClassName('track');
 
-/**  test  */
+/**
+ * @param {string} url location of track
+ */
 function playTrack(url) {
   const buffer = buffers[url];
   const source = context.createBufferSource();
@@ -21,24 +23,25 @@ function playTrack(url) {
   if (offset == 0) {
     source.start();
     offset = context.currentTime;
-    active_source = source;
+    activeSource = source;
   } else {
-    let relativeTime = context.currentTime - offset;
-    let beats = relativeTime / tempo;
-    let remainder = beats - Math.floor(beats);
-    let delay = tempo - (remainder * tempo);
-    let when = context.currentTime + delay;
-
+    const relativeTime = context.currentTime - offset;
+    const beats = relativeTime / tempo;
+    const remainder = beats - Math.floor(beats);
+    const delay = tempo - (remainder * tempo);
+    const when = context.currentTime + delay;
     stopActiveSource(when);
     source.start(context.currentTime + delay, relativeTime + delay);
-    active_source = source;
+    activeSource = source;
     source.onended = function() {
-      active_source = null;
+      activeSource = null;
     };
   }
 }
 
-/**   */
+/**
+ * @param {string} url buffers the track
+ */
 function getBuffer(url) {
   const request = new XMLHttpRequest();
   request.open('GET', url, true);
@@ -54,11 +57,13 @@ function getBuffer(url) {
   }
 }
 
-/**   */
+/**
+ * @param {number} when time to stop track
+ */
 function stopActiveSource(when) {
-  if (active_source) {
-    active_source.onended = null;
-    active_source.stop(when);
+  if (activeSource) {
+    activeSource.onended = null;
+    activeSource.stop(when);
   }
 }
 
@@ -68,7 +73,7 @@ let startTime = 0;
 const stings = [0, 2, 4, 6, 8, 10];
 const stingAudio = document.getElementById('stingAudio');
 
-/**   */
+/** contextual stab sounds of strings  */
 function playSting() {
   startTime = rndmArrI(stings);
   stingAudio.currentTime = startTime;
@@ -103,7 +108,7 @@ function makeNewPosition() {
   return [ny, nx];
 }
 
-/** jQuery animates big and updates bug css  */
+/** jQuery animates bug and updates bug css  */
 function animateDiv() {
   const newq = makeNewPosition();
   const oldq = $('.bug').offset();
@@ -138,7 +143,7 @@ function calcSpeed(prev, next) {
 GAMEPLAY
 */
 
-/**   */
+/** generic actions for completed levels */
 function checkpointDefaults() {
   $('.info-window').hide();
   $('.toggle').hide();
@@ -169,6 +174,7 @@ $('#screen').bind('input propertychange', function() {
   */
   if (valueCheck === '<div>helloworld!</div>') {
     checkpointDefaults();
+    $(tracks)[2].click();
     points(5000);
     typeWriter();
   }
@@ -178,6 +184,7 @@ $('#screen').bind('input propertychange', function() {
     $('.bug').css('display', 'inline-flex');
     animateDiv();
     $('.alerts').show();
+    $(tracks)[1].click();
   }
   if (valueCheck === '<style>.wall{background:#fade00;}</style>') {
     checkpointDefaults();
@@ -185,6 +192,7 @@ $('#screen').bind('input propertychange', function() {
     $('#windowsill').hide();
     $('.window-link').addClass('alert-link');
     $('.new-views').show();
+    $(tracks)[3].click();
   }
   if (valueCheck === '<li><ahref="index.html">home</a></li>') {
     checkpointDefaults();
@@ -194,6 +202,7 @@ $('#screen').bind('input propertychange', function() {
     $('.view-link.v07').parent().hide();
     $('.bug').addClass('task');
     clickStart();
+    $(tracks)[4].click();
   }
   if (valueCheck.indexOf("bugname:") != -1 && valueCheck.indexOf("severity:") != -1 && valueCheck.indexOf("reportedby:") != -1 && valueCheck.indexOf("environment:") != -1 && valueCheck.indexOf("--commit") != -1) {
     checkpointDefaults();
@@ -202,6 +211,7 @@ $('#screen').bind('input propertychange', function() {
     $('.bug').hide();
     $('.colon').addClass('task2');
     clickStart();
+    $(tracks)[5].click();
   }
   if (valueCheck === 'baselectstart' && konamiFlag) {
     checkpointDefaults();
@@ -209,6 +219,7 @@ $('#screen').bind('input propertychange', function() {
     clearInterval(clockAnimate);
     $('.colon').removeClass('task2');
     getTime();
+    $(tracks)[6].click();
   }
 });
 
@@ -230,7 +241,7 @@ function typeWriter() {
   }
 }
 
-/**   */
+/** click handlers for added elements */
 function clickStart() {
   $('.game-link').click(function() {
     $('.info-window').hide();
@@ -261,7 +272,7 @@ $('.close').click(function() {
 
 clickStart();
 
-/**   */
+/** gets time for ascii clock */
 function getTime() {
   const currentdate = new Date();
   let hours = currentdate.getHours();
@@ -274,7 +285,7 @@ function getTime() {
   document.getElementById('min-2').innerHTML = getDigit(minutes.charAt(1));
 }
 
-/**   */
+/** erratic clock behavior */
 function brokenClock() {
   document.getElementById('hour-' + (Math.ceil(Math.random() * 2)).toString()).innerHTML = getDigit((Math.ceil(Math.random() * 9)).toString());
   document.getElementById('min-' + (Math.ceil(Math.random() * 2)).toString()).innerHTML = getDigit((Math.ceil(Math.random() * 9)).toString());
@@ -322,7 +333,7 @@ function getDigit(d) {
   }
 }
 
-// a key map of allowed keys
+// a key map of allowed key strokes
 const allowedKeys = {
   37: 'left',
   38: 'up',

@@ -9,6 +9,12 @@ html {
   font-family: 'Ropa Sans', sans-serif;
 }
 
+h1 {
+  font-family: 'Tulpen One', monospace;
+  font-size: 3em;
+  margin: 2%;
+}
+
 ul {
   list-style: none;
   margin: 0;
@@ -46,9 +52,36 @@ a:hover {
 }
 
 .dialog {
-  height: 50%;
+  min-height: 50%;
   width: 50%;
   background: #fff;
+  text-align: center;
+  border: 2px solid #000;
+  padding: 2%;
+}
+
+.start {
+  font-family: 'Press Start 2P', sans-serif;
+  padding: 14px;
+  cursor: pointer;
+}
+
+.start:hover {
+  color: @red;
+}
+
+.cookies {
+  background: #000;
+  color: #fff;
+  padding: 2%;
+  a {
+    color: @red;
+    text-align: right;
+    display: inherit;
+  }
+  p {
+    margin: 2%;
+  }
 }
 
 .bold {
@@ -175,9 +208,9 @@ nav ul li {}
   background: #fff;
   font-family: 'Tulpen One', monospace;
   font-size: 2.9em;
-  height: 75%;
+  height: 80%;
   border: 2px solid #000;
-  margin: 6px;
+  margin: 4px 0;
 
   .content {
     font-family: 'Press Start 2P', sans-serif;
@@ -185,7 +218,8 @@ nav ul li {}
     font-size: 0.4em;
 
     p {
-      margin: 8% 2%;
+      margin: 3% 2%;
+      line-height: 1.2;
     }
 
     .mono {
@@ -367,6 +401,7 @@ pre {
   border: 0;
   resize: none;
   outline: none;
+  font-family: 'Ropa Sans', sans-serif;
 }
 
 .clock {
@@ -474,8 +509,9 @@ footer {
   }
 }
 
-.lives {color: @red;}
-
+.lives {
+  color: @red;
+}
 @media only screen and (min-width: 651px) {
   a:hover {}
 
