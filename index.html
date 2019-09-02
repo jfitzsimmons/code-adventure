@@ -41,6 +41,9 @@
   <div class="dialog">
     <h1>Code Adventure</h1>
 <button id="start" class="start">PRESS<br />START</button>
+<br />
+<label>Player 1: </label>
+<input id="name" class="name" type="text" />
 <p>
   by Joe
 </p>
@@ -57,7 +60,7 @@
 </div>
 <nav>
   <ul class="nav">
-    <li class="nav__link home"><a class="home__icon" href="#0"><svg class="svg-icon" viewBox="0 0 20 20">
+    <li class="nav__link home"><a class="home__icon" href="index.html"><svg class="svg-icon" viewBox="0 0 20 20">
 							<path d="M13.53,2.238c-0.389-0.164-0.844,0.017-1.01,0.41c-0.166,0.391,0.018,0.845,0.411,1.01
 								c2.792,1.181,4.598,3.904,4.6,6.937c0,4.152-3.378,7.529-7.53,7.529c-4.151,0-7.529-3.377-7.529-7.529
 								C2.469,7.591,4.251,4.878,7.01,3.683C7.401,3.515,7.58,3.06,7.412,2.67c-0.17-0.392-0.624-0.571-1.014-0.402
@@ -68,16 +71,6 @@
 						</svg></a></li>
 
     <li class="nav__link mid"></li>
-  <!--  <li class="nav__link top expands">
-      <a class="top__anchor" href="#0">Clients</a>
-      <ul class="sub-nav">
-        <li class="nav__link btm"><a href="#0">Burger King</a></li>
-        <li class="nav__link btm"><a href="#0">Southwest Airlines</a></li>
-        <li class="nav__link btm"><a href="#0">Levi Strauss</a></li>
-      </ul>
-    </li>
-    <li class="nav__link top"><a class="top__anchor" href="#0">Contact</a></li>
-  -->
   <li class="nav__link top expands right">
     <a class="top__anchor window-link" href="#0">Window</a>
     <ul class="sub-nav views">
@@ -205,6 +198,12 @@
           </div>
           <div class="content">
             Created by Joe
+            <p>
+              Code: <a class="red" href="https://github.com/jfitzsimmons/code-adventure" target="_blank">Github</a>
+            </p>
+            <p>
+              Music: <a class="red" href="https://soundcloud.com/ferniss/tracks" target="_blank">Ferniss</a>
+            </p>
           </div>
         </div>
         <div class="info-window memo">
@@ -219,6 +218,27 @@
           <div class="content">
             <p>
             Welcome to your first day of work.  We need you to create Hello World!
+            </p>
+            <p class="signature">
+              -The Boss
+            </p>
+          </div>
+        </div>
+        <div class="info-window urgent">
+          <div class="title-bar">
+              <span class="close"><svg class="svg-icon" viewBox="0 0 20 20">
+							<path d="M11.469,10l7.08-7.08c0.406-0.406,0.406-1.064,0-1.469c-0.406-0.406-1.063-0.406-1.469,0L10,8.53l-7.081-7.08
+							c-0.406-0.406-1.064-0.406-1.469,0c-0.406,0.406-0.406,1.063,0,1.469L8.531,10L1.45,17.081c-0.406,0.406-0.406,1.064,0,1.469
+							c0.203,0.203,0.469,0.304,0.735,0.304c0.266,0,0.531-0.101,0.735-0.304L10,11.469l7.08,7.081c0.203,0.203,0.469,0.304,0.735,0.304
+							c0.267,0,0.532-0.101,0.735-0.304c0.406-0.406,0.406-1.064,0-1.469L11.469,10z"></path>
+						</svg></span><span class="text">URGENT!</span>
+          </div>
+          <div class="content">
+            <p>
+            Didn't like the window, huh?  And who's this F10wrz? Meet me in my office first thing tomorrow morning.
+            </p>
+            <p class="signature">
+              -The Boss
             </p>
           </div>
         </div>
@@ -237,6 +257,33 @@
             </p>
             <p>
               If you complete this quickly, we'll upgrade your office.
+            </p>
+            <p class="signature">
+              -The Boss
+            </p>
+          </div>
+        </div>
+        <div class="info-window bugs">
+          <div class="title-bar">
+              <span class="close"><svg class="svg-icon" viewBox="0 0 20 20">
+              <path d="M11.469,10l7.08-7.08c0.406-0.406,0.406-1.064,0-1.469c-0.406-0.406-1.063-0.406-1.469,0L10,8.53l-7.081-7.08
+              c-0.406-0.406-1.064-0.406-1.469,0c-0.406,0.406-0.406,1.063,0,1.469L8.531,10L1.45,17.081c-0.406,0.406-0.406,1.064,0,1.469
+              c0.203,0.203,0.469,0.304,0.735,0.304c0.266,0,0.531-0.101,0.735-0.304L10,11.469l7.08,7.081c0.203,0.203,0.469,0.304,0.735,0.304
+              c0.267,0,0.532-0.101,0.735-0.304c0.406-0.406,0.406-1.064,0-1.469L11.469,10z"></path>
+            </svg></span><span class="text">Bugs</span>
+          </div>
+          <div class="content">
+            <p class="strike">
+              Take care of this bug problem right away.
+            </p>
+            <p class="signature strike">
+              -The Boss
+            </p>
+            <p>
+              All work and no play makes <script>document.write(sessionStorage.getItem('name'));</script> a dull boy.
+            </p>
+            <p class="signature">
+              -F10wrz
             </p>
           </div>
         </div>
@@ -258,6 +305,9 @@
             </p>
             <p class="mono">
               Hint: $,1,3,@ = false | 0 = true | [..] = replace
+            </p>
+            <p class="signature">
+              -F10wrz
             </p>
           </div>
         </div>
@@ -295,6 +345,9 @@
           </div>
           <div class="content">
             Good programmers write good CODE. Great programmers steal.  The best CHEAT.
+            <p class="signature">
+              -F10wrz
+            </p>
           </div>
         </div>
       </div>
@@ -313,6 +366,12 @@
       <div class="grid-cell row2-col2">
         <div class="alerts toggle">
           *<a class="game-link alert-link" href="#0">ALERT</a>
+        </div>
+        <div class="alert-urgent toggle">
+          *<a class="game-link alert-link" href="#0">URGENT</a>
+        </div>
+        <div class="alert-bug toggle">
+          *<a class="game-link alert-link" href="#0">BUGS</a>
         </div>
         <form action="">
           <textarea id="screen" name="message" class="computer-screen" placeholder="Type here"></textarea>
@@ -365,9 +424,20 @@
     </div>
   </div>
   <footer>
-    <span class="lives">&#9829;&#9829;&#9829;&#9829;&#9829;</span><span class="mid"></span><span class="role">Developer: </span><span id="score" class="score">0000</span>
+    <span class="lives">&#9829;&#9829;&#9829;&#9829;&#9829;</span><span class="mid"></span><span class="player"></span><span class="role">- Web Dev: </span><span id="score" class="score">0000</span>
   </footer>
-  <ul>
+  <div class="fin dialog">
+    <p>
+      Hey <script>document.write(sessionStorage.getItem('name'));</script>, Thanks for playing .
+    </p>
+    <p class="signature strike">
+      -F10wrz
+    </p>
+    <p class="signature">
+      -Joe
+    </p>
+  </div>
+  <ul class="tracks">
     <li><a class="track" id="tracks1" href="audio/coding2-1.mp3">stage 1</a></li>
     <li><a class="track" id="tracks2" href="audio/coding2-2.mp3">stage 2</a></li>
     <li><a class="track" href="audio/coding2-3.mp3">stage 3</a></li>

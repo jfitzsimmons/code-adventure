@@ -87,7 +87,24 @@ stingAudio.addEventListener('timeupdate', function() {
   }
 }, false);
 
+const name = document.getElementById('name');
+
+if (sessionStorage.getItem('name')) {
+  // Restore the contents of the text field
+  name.value = sessionStorage.getItem('name');
+} else {
+  name.value = 'Terry';
+  sessionStorage.setItem('name', name.value);
+}
+sessionStorage.setItem('name', name.value);
+name.addEventListener('change', function() {
+  // And save the results into the session storage object
+  sessionStorage.setItem('name', name.value);
+  console.log(`session change: ${name.value}`);
+});
+
 $('#start').click(function(e) {
+  $('.player').text(sessionStorage.getItem('name'));
   $('.mask').hide();
   context.resume().then(() => {
     $(tracks)[0].click();
@@ -144,6 +161,17 @@ GAMEPLAY
 */
 
 /** generic actions for completed levels */
+/** game over animation  */
+function endAnimation() {
+  $('.top__anchor').hide();
+  $('body').addClass('ending');
+  $('.ascii-container').animate({
+    opacity: '0',
+  }, 5000);
+  $('.fin').delay(3500).fadeIn(7500);
+}
+
+/** default behavior for level completion  */
 function checkpointDefaults() {
   $('.info-window').hide();
   $('.toggle').hide();
@@ -177,6 +205,8 @@ $('#screen').bind('input propertychange', function() {
     $(tracks)[2].click();
     points(5000);
     typeWriter();
+    $('.tip > .content > p').html('An example of using a style tag would be: <br />&lt;style&gt;<br />&nbsp;.text {<br />&nbsp;&nbsp;color=#FFDD44;<br />&nbsp;};<br />&lt;/style&gt;');
+
   }
   if (valueCheck === 'helloworld!') {
     checkpointDefaults();
@@ -185,6 +215,7 @@ $('#screen').bind('input propertychange', function() {
     animateDiv();
     $('.alerts').show();
     $(tracks)[1].click();
+    $('.tip > .content > p').html('An example of using a div tag would be: <br />&lt;div&gt;<br />&nbsp;&nbsp;example text<br />&lt;/div&gt;');
   }
   if (valueCheck === '<style>.wall{background:#fade00;}</style>') {
     checkpointDefaults();
@@ -193,6 +224,8 @@ $('#screen').bind('input propertychange', function() {
     $('.window-link').addClass('alert-link');
     $('.new-views').show();
     $(tracks)[3].click();
+    $('.tip > .content > p').html("There's no place like >Home<");
+    $('.alert-urgent').show();
   }
   if (valueCheck === '<li><ahref="index.html">home</a></li>') {
     checkpointDefaults();
@@ -203,8 +236,10 @@ $('#screen').bind('input propertychange', function() {
     $('.bug').addClass('task');
     clickStart();
     $(tracks)[4].click();
+    $('.tip > .content > p').html('We had to fire the last person who submitted a bug report on behalf of someone else.');
+    $('.alert-bug').show();
   }
-  if (valueCheck.indexOf("bugname:") != -1 && valueCheck.indexOf("severity:") != -1 && valueCheck.indexOf("reportedby:") != -1 && valueCheck.indexOf("environment:") != -1 && valueCheck.indexOf("--commit") != -1) {
+  if (valueCheck.indexOf("bugname:") != -1 && valueCheck.indexOf("severity:") != -1 && valueCheck.indexOf("reportedby:") != -1 && valueCheck.indexOf("environment:") != -1 && valueCheck.indexOf("--commit") != -1 && valueCheck.indexOf(sessionStorage.getItem('name').toLowerCase()) != -1) {
     checkpointDefaults();
     points(3926);
     clockAnimate = setInterval(brokenClock, 500);
@@ -212,6 +247,7 @@ $('#screen').bind('input propertychange', function() {
     $('.colon').addClass('task2');
     clickStart();
     $(tracks)[5].click();
+    $('.tip > .content > p').html("Don't forget, make the end of it 'Select, Start' if you want to play 2 players!<br /><a class='red' href='https://www.urbandictionary.com/define.php?term=Up%2C%20Up%2C%20Down%2C%20Down%2C%20Left%2C%20Right%2C%20Left%2C%20Right%2C%20B%2C%20A%2C%20Start' target='_blank'>Konami Code</a>");
   }
   if (valueCheck === 'baselectstart' && konamiFlag) {
     checkpointDefaults();
@@ -220,11 +256,12 @@ $('#screen').bind('input propertychange', function() {
     $('.colon').removeClass('task2');
     getTime();
     $(tracks)[6].click();
+    endAnimation();
   }
 });
 
 let i = 0;
-const txt = "((IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII))\n((IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII))\n(('.'.'.'.'.;:;:;:;:;:;.'.'.'.'.'.'))\n))'.'.'.'.'.;:;:;:;:;:;.'.'.'.'.'.'((\n(('.'.'.'.'.;'   |    `:'.'.'.'.'.'))\n))'.'.'.'.';'    |     `:.'.'.'.'.'((\n(('.'.'.'.;'     |      `:'.'.'.'.'))\n))'.'.'.';'______|_______`:.'.'.'.'((\n((======0'       |        `0=======))\n))'.'.'.':       |         :'.'.'.'((\n))'.'.'.':     (a()@       :'.'.'.'((\n(('.'.'.'.    @()@()@      .'.'.'.'))\n))'.'.'.'.   ()@()@)()     .'.'.'.'((\n(('.'.'.'.    __\\|/__      .'.'.'.'))\n))'.'.'.'.   |-------|     .'.'.'.'((\n(('.'.'.'.    \\     /      .'.'.'.'))\n(('.'.'.'._____\\___/_______.'.'.'.'))\n))'.'.'.'==================='.'.'.'((\n))'.'.'.'==================='.'.'.'((\n(('.'.'.'                   '.'.'.'))\n   ~~~~                       ~~~~"; /* The text */
+const txt = "((IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII))\n((IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII))\n(('.'.'.'.'.;:;:;:;:;:;.'.'.'.'.'.'))\n))'.'.'.'.'.;:;:;:;:;:;.'.'.'.'.'.'((\n(('.'.'.'.'.;'   |    `:'.'.'.'.'.'))\n))'.'.'.'.';'    |     `:.'.'.'.'.'((\n(('.'.'.'.;'     |      `:'.'.'.'.'))\n))'.'.'.';'______|_______`:.'.'.'.'((\n((======0'       |        `0=======))\n))'.'.'.':       |         :'.'.'.'((\n))'.'.'.':     (a()@       :'.'.'.'((\n(('.'.'.'.    @()@()a      .'.'.'.'))\n))'.'.'.'.   ()a()@)()     .'.'.'.'((\n(('.'.'.'.    __\\|/__      .'.'.'.'))\n))'.'.'.'.   |-------|     .'.'.'.'((\n(('.'.'.'.    \\     /      .'.'.'.'))\n(('.'.'.'._____\\___/_______.'.'.'.'))\n))'.'.'.'==================='.'.'.'((\n))'.'.'.'==================='.'.'.'((\n(('.'.'.'                   '.'.'.'))\n   ~~~~                       ~~~~"; /* The text */
 const speed = 20;
 
 /** The speed/duration of the effect in milliseconds */
