@@ -52,7 +52,6 @@ function getBuffer(url) {
   };
   request.send();
 
-  /**   */
   function store(buffer) {
     buffers[url] = buffer;
   }
@@ -167,7 +166,7 @@ function endAnimation() {
   $('.ascii-container').animate({
     opacity: '0',
   }, 5000);
-  $('.fin').delay(3500).fadeIn(7500);
+  $('.fin').delay(2000).fadeIn(6000);
 }
 
 let i = 0;
@@ -215,6 +214,58 @@ function checkpointDefaults() {
   $('#screen').val('');
 }
 
+/** gets time for ascii clock */
+function getTime() {
+  const currentdate = new Date();
+  let hours = currentdate.getHours();
+  let minutes = currentdate.getMinutes();
+  hours = ('0' + hours).slice(-2);
+  minutes = ('0' + minutes).slice(-2);
+  document.getElementById('hour-1').innerHTML = getDigit(hours.charAt(0));
+  document.getElementById('hour-2').innerHTML = getDigit(hours.charAt(1));
+  document.getElementById('min-1').innerHTML = getDigit(minutes.charAt(0));
+  document.getElementById('min-2').innerHTML = getDigit(minutes.charAt(1));
+}
+
+/** erratic clock behavior */
+function brokenClock() {
+  document.getElementById('hour-' + (Math.ceil(Math.random() * 2)).toString()).innerHTML = getDigit((Math.ceil(Math.random() * 9)).toString());
+  document.getElementById('min-' + (Math.ceil(Math.random() * 2)).toString()).innerHTML = getDigit((Math.ceil(Math.random() * 9)).toString());
+}
+
+getTime();
+/**
+ * @param {string} d single digit number
+ * @return {string} ascii digit
+ */
+function getDigit(d) {
+  switch (d) {
+    case '0':
+      return ' _ \n| |\n|_|';
+    case '1':
+      return '   \n  |\n  |';
+    case '2':
+      return ' _ \n _|\n|_ ';
+    case '3':
+      return ' _ \n _|\n _|';
+    case '4':
+      return '   \n|_|\n  |';
+    case '5':
+      return ' _ \n|_ \n _|';
+    case '6':
+      return ' _ \n|_ \n|_|';
+    case '7':
+      return ' _ \n  |\n  |';
+    case '8':
+      return ' _ \n|_|\n|_|';
+    case '9':
+      return ' _ \n|_|\n  |';
+  }
+}
+
+/*
+Level Checkpoints
+*/
 let clockAnimate;
 let keycount = 0;
 $('#screen').bind('input propertychange', function() {
@@ -222,71 +273,6 @@ $('#screen').bind('input propertychange', function() {
   (keycount % 10 === 0 && playSting());
   let valueCheck = this.value;
   valueCheck = valueCheck.replace(/\s/g, '').toLowerCase();
-
-  /** gets time for ascii clock */
-  function getTime() {
-    const currentdate = new Date();
-    let hours = currentdate.getHours();
-    let minutes = currentdate.getMinutes();
-    hours = ('0' + hours).slice(-2);
-    minutes = ('0' + minutes).slice(-2);
-    document.getElementById('hour-1').innerHTML = getDigit(hours.charAt(0));
-    document.getElementById('hour-2').innerHTML = getDigit(hours.charAt(1));
-    document.getElementById('min-1').innerHTML = getDigit(minutes.charAt(0));
-    document.getElementById('min-2').innerHTML = getDigit(minutes.charAt(1));
-  }
-
-  /** erratic clock behavior */
-  function brokenClock() {
-    document.getElementById('hour-' + (Math.ceil(Math.random() * 2)).toString()).innerHTML = getDigit((Math.ceil(Math.random() * 9)).toString());
-    document.getElementById('min-' + (Math.ceil(Math.random() * 2)).toString()).innerHTML = getDigit((Math.ceil(Math.random() * 9)).toString());
-  }
-
-  getTime();
-  window.onload = function() {
-    setInterval(getTime, 60000);
-    context = new(window.AudioContext || window.webkitAudioContext)();
-    for (let i = 0, len = tracks.length; i < len; i++) {
-      tracks[i].addEventListener('click', function(e) {
-        playTrack(this.href);
-        e.preventDefault();
-      });
-      getBuffer(tracks[i].href);
-    }
-  };
-
-  /**
-   * @param {string} d single digit number
-   * @return {string} ascii digit
-   */
-  function getDigit(d) {
-    switch (d) {
-      case '0':
-        return ' _ \n| |\n|_|';
-      case '1':
-        return '   \n  |\n  |';
-      case '2':
-        return ' _ \n _|\n|_ ';
-      case '3':
-        return ' _ \n _|\n _|';
-      case '4':
-        return '   \n|_|\n  |';
-      case '5':
-        return ' _ \n|_ \n _|';
-      case '6':
-        return ' _ \n|_ \n|_|';
-      case '7':
-        return ' _ \n  |\n  |';
-      case '8':
-        return ' _ \n|_|\n|_|';
-      case '9':
-        return ' _ \n|_|\n  |';
-    }
-  }
-
-  /*
-  Level Checkpoints
-  */
 
   /*
   if (valueCheck === '<div></div>') {
@@ -408,3 +394,19 @@ document.addEventListener('keydown', function(e) {
     konamiCodePosition = 0;
   }
 });
+
+/*
+ * on load
+ */
+
+window.onload = function() {
+  setInterval(getTime, 60000);
+  context = new(window.AudioContext || window.webkitAudioContext)();
+  for (let i = 0, len = tracks.length; i < len; i++) {
+    tracks[i].addEventListener('click', function(e) {
+      playTrack(this.href);
+      e.preventDefault();
+    });
+    getBuffer(tracks[i].href);
+  }
+};
