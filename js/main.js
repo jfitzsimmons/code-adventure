@@ -105,7 +105,7 @@ name.addEventListener('change', function() {
 });
 
 $('#start').click(function(e) {
-  $('.player').text(sessionStorage.getItem('name'));
+  $('.session').text(sessionStorage.getItem('name'));
   $('.mask').hide();
   context.resume().then(() => {
     $(tracks)[0].click();
