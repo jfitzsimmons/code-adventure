@@ -106,6 +106,7 @@ name.addEventListener('change', function() {
 
 $('#start').click(function(e) {
   $('.session').text(sessionStorage.getItem('name'));
+  $('.session:hidden').text(sessionStorage.getItem('name'));
   $('.mask').hide();
   context.resume().then(() => {
     $(tracks)[0].click();
