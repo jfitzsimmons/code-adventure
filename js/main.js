@@ -1,7 +1,8 @@
-/*
-MUSIC
-*/
 const $ = jQuery;
+
+/*
+ * MUSIC
+ */
 let activeSource = null;
 const buffers = {};
 let context;
@@ -67,11 +68,11 @@ function stopActiveSource(when) {
   }
 }
 
-
 let stopTime = 0;
 let startTime = 0;
 const stings = [0, 2, 4, 6, 8, 10];
 const stingAudio = document.getElementById('stingAudio');
+const rndmArrI = (a) => a[Math.floor(Math.random() * a.length)];
 
 /** contextual stab sounds of strings  */
 function playSting() {
@@ -87,10 +88,13 @@ stingAudio.addEventListener('timeupdate', function() {
   }
 }, false);
 
+/*
+ * Cookies
+ */
+
 const name = document.getElementById('name');
 
 if (sessionStorage.getItem('name')) {
-  // Restore the contents of the text field
   name.value = sessionStorage.getItem('name');
 } else {
   name.value = 'Terry';
@@ -98,9 +102,7 @@ if (sessionStorage.getItem('name')) {
 }
 sessionStorage.setItem('name', name.value);
 name.addEventListener('change', function() {
-  // And save the results into the session storage object
   sessionStorage.setItem('name', name.value);
-  console.log(`session change: ${name.value}`);
 });
 
 $('#start').click(function(e) {
@@ -111,7 +113,10 @@ $('#start').click(function(e) {
   });
 });
 
-const rndmArrI = (a) => a[Math.floor(Math.random() * a.length)];
+
+/*
+ * ANIMATIONS
+ */
 
 /**
  * sets target location for bug animation
@@ -155,12 +160,6 @@ function calcSpeed(prev, next) {
   return speed;
 }
 
-
-/*
-GAMEPLAY
-*/
-
-/** generic actions for completed levels */
 /** game over animation  */
 function endAnimation() {
   $('.top__anchor').hide();
@@ -170,6 +169,43 @@ function endAnimation() {
   }, 5000);
   $('.fin').delay(3500).fadeIn(7500);
 }
+
+let i = 0;
+const txt = "((IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII))\n((IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII))\n(('.'.'.'.'.;:;:;:;:;:;.'.'.'.'.'.'))\n))'.'.'.'.'.;:;:;:;:;:;.'.'.'.'.'.'((\n(('.'.'.'.'.;'   |    `:'.'.'.'.'.'))\n))'.'.'.'.';'    |     `:.'.'.'.'.'((\n(('.'.'.'.;'     |      `:'.'.'.'.'))\n))'.'.'.';'______|_______`:.'.'.'.'((\n((======0'       |        `0=======))\n))'.'.'.':       |         :'.'.'.'((\n))'.'.'.':     (a()@       :'.'.'.'((\n(('.'.'.'.    @()@()a      .'.'.'.'))\n))'.'.'.'.   ()a()@)()     .'.'.'.'((\n(('.'.'.'.    __\\|/__      .'.'.'.'))\n))'.'.'.'.   |-------|     .'.'.'.'((\n(('.'.'.'.    \\     /      .'.'.'.'))\n(('.'.'.'._____\\___/_______.'.'.'.'))\n))'.'.'.'==================='.'.'.'((\n))'.'.'.'==================='.'.'.'((\n(('.'.'.'                   '.'.'.'))\n   ~~~~                       ~~~~"; /* The text */
+const speed = 20;
+
+/** The speed/duration of the effect in milliseconds */
+function typeWriter() {
+  if (i < txt.length) {
+    document.getElementById('windowsill').innerHTML += txt.charAt(i);
+    i++;
+    setTimeout(typeWriter, speed);
+  } else {
+    $('#windowsill:contains("a")').html(function(_, html) {
+      return html.replace(/(a)/g, '<a class="game-link alert-link bold" href="#0">a</a>');
+    });
+    clickStart();
+  }
+}
+
+/**
+ * @param {number} p points for completing level
+ */
+function points(p) {
+  let curr = parseInt(document.getElementById('score').innerHTML);
+  const goal = curr + p;
+  const i = setInterval(function() {
+    curr += 2;
+    document.getElementById('score').innerHTML = curr.toString();
+    if (curr >= goal) {
+      clearInterval(i);
+    }
+  }, 5);
+}
+
+/*
+GAMEPLAY
+*/
 
 /** default behavior for level completion  */
 function checkpointDefaults() {
@@ -183,11 +219,70 @@ let clockAnimate;
 let keycount = 0;
 $('#screen').bind('input propertychange', function() {
   keycount++;
-  // sting every ten keypresses
   (keycount % 10 === 0 && playSting());
   let valueCheck = this.value;
-  // simplify input to check
   valueCheck = valueCheck.replace(/\s/g, '').toLowerCase();
+
+  /** gets time for ascii clock */
+  function getTime() {
+    const currentdate = new Date();
+    let hours = currentdate.getHours();
+    let minutes = currentdate.getMinutes();
+    hours = ('0' + hours).slice(-2);
+    minutes = ('0' + minutes).slice(-2);
+    document.getElementById('hour-1').innerHTML = getDigit(hours.charAt(0));
+    document.getElementById('hour-2').innerHTML = getDigit(hours.charAt(1));
+    document.getElementById('min-1').innerHTML = getDigit(minutes.charAt(0));
+    document.getElementById('min-2').innerHTML = getDigit(minutes.charAt(1));
+  }
+
+  /** erratic clock behavior */
+  function brokenClock() {
+    document.getElementById('hour-' + (Math.ceil(Math.random() * 2)).toString()).innerHTML = getDigit((Math.ceil(Math.random() * 9)).toString());
+    document.getElementById('min-' + (Math.ceil(Math.random() * 2)).toString()).innerHTML = getDigit((Math.ceil(Math.random() * 9)).toString());
+  }
+
+  getTime();
+  window.onload = function() {
+    setInterval(getTime, 60000);
+    context = new(window.AudioContext || window.webkitAudioContext)();
+    for (let i = 0, len = tracks.length; i < len; i++) {
+      tracks[i].addEventListener('click', function(e) {
+        playTrack(this.href);
+        e.preventDefault();
+      });
+      getBuffer(tracks[i].href);
+    }
+  };
+
+  /**
+   * @param {string} d single digit number
+   * @return {string} ascii digit
+   */
+  function getDigit(d) {
+    switch (d) {
+      case '0':
+        return ' _ \n| |\n|_|';
+      case '1':
+        return '   \n  |\n  |';
+      case '2':
+        return ' _ \n _|\n|_ ';
+      case '3':
+        return ' _ \n _|\n _|';
+      case '4':
+        return '   \n|_|\n  |';
+      case '5':
+        return ' _ \n|_ \n _|';
+      case '6':
+        return ' _ \n|_ \n|_|';
+      case '7':
+        return ' _ \n  |\n  |';
+      case '8':
+        return ' _ \n|_|\n|_|';
+      case '9':
+        return ' _ \n|_|\n  |';
+    }
+  }
 
   /*
   Level Checkpoints
@@ -206,7 +301,6 @@ $('#screen').bind('input propertychange', function() {
     points(5000);
     typeWriter();
     $('.tip > .content > p').html('An example of using a style tag would be: <br />&lt;style&gt;<br />&nbsp;.text {<br />&nbsp;&nbsp;color=#FFDD44;<br />&nbsp;};<br />&lt;/style&gt;');
-
   }
   if (valueCheck === 'helloworld!') {
     checkpointDefaults();
@@ -260,24 +354,6 @@ $('#screen').bind('input propertychange', function() {
   }
 });
 
-let i = 0;
-const txt = "((IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII))\n((IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII))\n(('.'.'.'.'.;:;:;:;:;:;.'.'.'.'.'.'))\n))'.'.'.'.'.;:;:;:;:;:;.'.'.'.'.'.'((\n(('.'.'.'.'.;'   |    `:'.'.'.'.'.'))\n))'.'.'.'.';'    |     `:.'.'.'.'.'((\n(('.'.'.'.;'     |      `:'.'.'.'.'))\n))'.'.'.';'______|_______`:.'.'.'.'((\n((======0'       |        `0=======))\n))'.'.'.':       |         :'.'.'.'((\n))'.'.'.':     (a()@       :'.'.'.'((\n(('.'.'.'.    @()@()a      .'.'.'.'))\n))'.'.'.'.   ()a()@)()     .'.'.'.'((\n(('.'.'.'.    __\\|/__      .'.'.'.'))\n))'.'.'.'.   |-------|     .'.'.'.'((\n(('.'.'.'.    \\     /      .'.'.'.'))\n(('.'.'.'._____\\___/_______.'.'.'.'))\n))'.'.'.'==================='.'.'.'((\n))'.'.'.'==================='.'.'.'((\n(('.'.'.'                   '.'.'.'))\n   ~~~~                       ~~~~"; /* The text */
-const speed = 20;
-
-/** The speed/duration of the effect in milliseconds */
-function typeWriter() {
-  if (i < txt.length) {
-    document.getElementById('windowsill').innerHTML += txt.charAt(i);
-    i++;
-    setTimeout(typeWriter, speed);
-  } else {
-    $('#windowsill:contains("a")').html(function(_, html) {
-      return html.replace(/(a)/g, '<a class="game-link alert-link bold" href="#0">a</a>');
-    });
-    clickStart();
-  }
-}
-
 /** click handlers for added elements */
 function clickStart() {
   $('.game-link').click(function() {
@@ -309,67 +385,6 @@ $('.close').click(function() {
 
 clickStart();
 
-/** gets time for ascii clock */
-function getTime() {
-  const currentdate = new Date();
-  let hours = currentdate.getHours();
-  let minutes = currentdate.getMinutes();
-  hours = ('0' + hours).slice(-2);
-  minutes = ('0' + minutes).slice(-2);
-  document.getElementById('hour-1').innerHTML = getDigit(hours.charAt(0));
-  document.getElementById('hour-2').innerHTML = getDigit(hours.charAt(1));
-  document.getElementById('min-1').innerHTML = getDigit(minutes.charAt(0));
-  document.getElementById('min-2').innerHTML = getDigit(minutes.charAt(1));
-}
-
-/** erratic clock behavior */
-function brokenClock() {
-  document.getElementById('hour-' + (Math.ceil(Math.random() * 2)).toString()).innerHTML = getDigit((Math.ceil(Math.random() * 9)).toString());
-  document.getElementById('min-' + (Math.ceil(Math.random() * 2)).toString()).innerHTML = getDigit((Math.ceil(Math.random() * 9)).toString());
-}
-
-getTime();
-window.onload = function() {
-  setInterval(getTime, 60000);
-  context = new(window.AudioContext || window.webkitAudioContext)();
-  for (let i = 0, len = tracks.length; i < len; i++) {
-    tracks[i].addEventListener('click', function(e) {
-      playTrack(this.href);
-      e.preventDefault();
-    });
-    getBuffer(tracks[i].href);
-  }
-};
-
-/**
- * @param {string} d single digit number
- * @return {string} ascii digit
- */
-function getDigit(d) {
-  switch (d) {
-    case '0':
-      return ' _ \n| |\n|_|';
-    case '1':
-      return '   \n  |\n  |';
-    case '2':
-      return ' _ \n _|\n|_ ';
-    case '3':
-      return ' _ \n _|\n _|';
-    case '4':
-      return '   \n|_|\n  |';
-    case '5':
-      return ' _ \n|_ \n _|';
-    case '6':
-      return ' _ \n|_ \n|_|';
-    case '7':
-      return ' _ \n  |\n  |';
-    case '8':
-      return ' _ \n|_|\n|_|';
-    case '9':
-      return ' _ \n|_|\n  |';
-  }
-}
-
 // a key map of allowed key strokes
 const allowedKeys = {
   37: 'left',
@@ -377,7 +392,6 @@ const allowedKeys = {
   39: 'right',
   40: 'down',
 };
-
 let konamiFlag = false;
 const konamiCode = ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right'];
 let konamiCodePosition = 0;
@@ -394,18 +408,3 @@ document.addEventListener('keydown', function(e) {
     konamiCodePosition = 0;
   }
 });
-
-/**
- * @param {number} p points for completing level
- */
-function points(p) {
-  let curr = parseInt(document.getElementById('score').innerHTML);
-  const goal = curr + p;
-  const i = setInterval(function() {
-    curr += 2;
-    document.getElementById('score').innerHTML = curr.toString();
-    if (curr >= goal) {
-      clearInterval(i);
-    }
-  }, 5);
-}
