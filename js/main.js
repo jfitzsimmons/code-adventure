@@ -113,7 +113,6 @@ $('#start').click(function(e) {
   });
 });
 
-
 /*
  * ANIMATIONS
  */
@@ -410,4 +409,9 @@ window.onload = function() {
     });
     getBuffer(tracks[i].href);
   }
+  $('#name').keypress(function(e) {
+    if (e.keyCode==13) {
+      $('#start').trigger('click');
+    }
+  });
 };
