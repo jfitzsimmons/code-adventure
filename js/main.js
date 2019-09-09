@@ -92,26 +92,15 @@ stingAudio.addEventListener('timeupdate', function() {
  */
 
 const name = document.getElementById('name');
-
-if (sessionStorage.getItem('name')) {
-  name.value = sessionStorage.getItem('name');
-} else {
-  name.value = 'Terry';
+const storedName = sessionStorage.getItem('name');
+/** load name cookie  */
+function loadName() {
+  name.value = (storedName) ? storedName : 'Terry';
+}
+/** save name cookie  */
+function saveName() {
   sessionStorage.setItem('name', name.value);
 }
-sessionStorage.setItem('name', name.value);
-name.addEventListener('change', function() {
-  sessionStorage.setItem('name', name.value);
-});
-
-$('#start').click(function(e) {
-  $('.session').text(sessionStorage.getItem('name'));
-  $('.session:hidden').text(sessionStorage.getItem('name'));
-  $('.mask').hide();
-  context.resume().then(() => {
-    $(tracks)[0].click();
-  });
-});
 
 /*
  * ANIMATIONS
@@ -396,8 +385,18 @@ document.addEventListener('keydown', function(e) {
 });
 
 /*
- * on load
+ * on load / start
  */
+
+$('#start').click(function(e) {
+  saveName();
+  $('.session').text(sessionStorage.getItem('name'));
+  $('.session:hidden').text(sessionStorage.getItem('name'));
+  $('.mask').hide();
+  context.resume().then(() => {
+    $(tracks)[0].click();
+  });
+});
 
 window.onload = function() {
   setInterval(getTime, 60000);
@@ -409,6 +408,7 @@ window.onload = function() {
     });
     getBuffer(tracks[i].href);
   }
+  loadName();
   $('#name').keypress(function(e) {
     if (e.keyCode==13) {
       $('#start').trigger('click');
